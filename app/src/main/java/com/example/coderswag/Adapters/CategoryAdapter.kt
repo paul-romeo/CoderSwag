@@ -28,28 +28,39 @@ class CategoryAdapter(context: Context, categories: List<Category>): BaseAdapter
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         // Import the category_list_item.xml into categoryView
-        val categoryView: View =
-            LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+        val categoryView: View
+        val holder: ViewHolder
 
-        // Get the categoryName and categoryImage from categoryView
-        val categoryImage = categoryView.findViewById<ImageView>(R.id.categoryImage)
-        val categoryName = categoryView.findViewById<TextView>(R.id.categoryName)
+        if (convertView == null) {
 
+            categoryView = LayoutInflater.from(context).inflate(R.layout.category_list_item, null)
+            holder = ViewHolder()
+
+            // Get the holder.categoryName and holder.categoryImage
+            holder.categoryImage = categoryView.findViewById(R.id.categoryImage)
+            holder.categoryName = categoryView.findViewById(R.id.categoryName)
+
+            categoryView.tag = holder
+        } else {
+            holder = convertView.tag as ViewHolder
+            categoryView = convertView
+
+        }
         val category = categories[position]
 
         // Set image resource of the category image based on the resourceId on drawable
         val resourceId = context.resources.getIdentifier(category.image, "drawable", context.packageName)
-        with(categoryImage) {
-            setImageResource(resourceId)
-        }
-        println(resourceId)
+        holder.categoryImage?.setImageResource(resourceId)
 
         // Get the categoryName.text
-
-        categoryName.text = category.title
+        holder.categoryName?.text  = category.title
 
         return categoryView
-
-
     }
+
+    private class ViewHolder {
+        var categoryImage: ImageView? = null
+        var categoryName: TextView? = null
+    }
+
 }
