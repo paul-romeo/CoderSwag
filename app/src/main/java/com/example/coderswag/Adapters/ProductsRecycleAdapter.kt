@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.coderswag.Model.Product
 import com.example.coderswag.R
 
-class ProductsAdapter(val context: Context, val products: List<Product>): RecyclerView.Adapter<ProductsAdapter.ProductHolder>() {
+class ProductsRecycleAdapter(val context: Context, val products: List<Product>): RecyclerView.Adapter<ProductsRecycleAdapter.ProductHolder>() {
     inner class ProductHolder(itemView: View) : ViewHolder(itemView){
         // Get ids of productImage, productName, and productPrice
         val productImage = itemView?.findViewById<ImageView>(R.id.productImage)
